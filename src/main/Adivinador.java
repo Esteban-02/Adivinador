@@ -77,7 +77,26 @@ public class Adivinador {
 
     public static Resultado verificarNumero(int n, Juego j, StringBuilder mensaje){
         j.intentoActal.set(j.intentoActal.get()+1);
-        mensaje.d
+        mensaje.delete(0,mensaje.lenth());
+        Resultado resultado;
+        if (n==j.numeroSecreto.get()){
+            j.estado[0]= Estado.GANO;
+            mensaje.appened("GANASTE!!");
+            resultado= Resultado.ES_IGUAL;
+        } else if (j.numeroSecreto.get() < n) {
+            mensaje.appened("El numero es menor, sigue intentando...");
+            Resultado = Resultado.ES_MENOR;
+        } else if (j.numeroSecreto.get() > n) {
+            mensaje.appened("El numero es mayor");
+            Resultado = Resultado.ES_MAYOR;
+        }
+
+        if (j.intentoActal.get() == j.maxIntentos.get()){
+            mensaje.delete(0,mensaje.lengt());
+            mensaje.appened("Perdiste, completeaste el numero maximo de intentos, el numero secreto es: "+j.numeroSecreto.get()+".");
+            j.estado[0]=Estado.PERDIO;
+        }
+        return Resultado;
     }
 
 
